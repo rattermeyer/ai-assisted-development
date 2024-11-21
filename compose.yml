@@ -1,0 +1,15 @@
+version: "3"
+volumes:
+  postgres-data:
+services:
+  postgres:
+    image: postgres:16.2
+    shm_size: "128mb"
+    environment:
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRESQL_MULTIPLE_DATABASES=chinook,pagila
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./docker-compose/postgres/initdb.d:/docker-entrypoint-initdb.d:Z"
+      - postgres-data:/var/lib/postgresql/data
